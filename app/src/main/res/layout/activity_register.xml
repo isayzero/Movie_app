@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Line"
+        android:hint="이름"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/edtID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Line"
+        android:hint="아이디"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Line"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Line"
+        android:hint="이메일"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rgGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <RadioButton
+            android:id="@+id/rbGenderMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남성" />
+
+        <RadioButton
+            android:id="@+id/rbGenderFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여성"
+            android:layout_marginStart="16dp" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="장르"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- 부모 LinearLayout을 수평으로 설정하여 자식 LinearLayout을 나란히 배치 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <!-- 첫 번째 LinearLayout -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginEnd="8dp">
+
+            <CheckBox
+                android:id="@+id/chkAct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="액션"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkCom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="코미디"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkDra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="드라마"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkFam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="가족"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkFst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="판타지"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkHis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="역사"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkRom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로맨스"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkSF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SF"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkThr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스릴러"
+                android:layout_marginBottom="4dp" />
+
+        </LinearLayout>
+
+        <!-- 두 번째 LinearLayout -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp">
+
+            <CheckBox
+                android:id="@+id/chkAdv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="모험"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkAni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="애니메이션"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkCri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="범죄"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkHor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공포"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkMus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="음악"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkMst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="미스터리"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkWar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전쟁"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/chkWes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서부"
+                android:layout_marginBottom="4dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Button"
+        android:text="등록" />
+
+</LinearLayout>
