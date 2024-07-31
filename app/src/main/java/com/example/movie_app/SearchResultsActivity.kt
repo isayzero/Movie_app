@@ -29,29 +29,29 @@ class SearchResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results)
 
-        val searchQuery = intent.getStringExtra("search_query")
-        val moviesJson = intent.getStringExtra("movies")
+        val searchQuery = intent.getStringExtra("search_query") // 검색어를 가져오는 부분이다.
+        val moviesJson = intent.getStringExtra("movies") // 영화 목록 JSON을 가져오는 부분이다.
 
         val gson = Gson()
         val type = object : TypeToken<List<Movie>>() {}.type
-        val movies: List<Movie> = gson.fromJson(moviesJson, type)
+        val movies: List<Movie> = gson.fromJson(moviesJson, type) // JSON을 List<Movie>로 변환하는 부분이다.
 
         val txtSearchQuery: TextView = findViewById(R.id.txtSearchQuery)
-        txtSearchQuery.text = searchQuery ?: "Search results"
+        txtSearchQuery.text = searchQuery ?: "Search results" // 검색어를 텍스트뷰에 설정하는 부분이다.
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewSearchResults)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = MovieAdapter(movies, this)
+        recyclerView.layoutManager = LinearLayoutManager(this) // 리사이클러뷰를 LinearLayout으로 설정하는 부분이다.
+        recyclerView.adapter = MovieAdapter(movies, this) // 리사이클러뷰에 어댑터를 설정하는 부분이다.
 
-        setupRetrofit()
+        setupRetrofit() // Retrofit을 설정하는 부분이다.
     }
 
     private fun setupRetrofit() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://api.themoviedb.org/3/") // TMDb API의 기본 URL이다.
+            .addConverterFactory(GsonConverterFactory.create()) // JSON 변환을 위해 GsonConverterFactory를 추가하는 부분이다.
             .build()
-        tmdbApi = retrofit.create(TMDbApi::class.java)
+        tmdbApi = retrofit.create(TMDbApi::class.java) // TMDbApi 인터페이스를 구현한 객체를 생성하는 부분이다.
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -63,7 +63,7 @@ class SearchResultsActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    searchMovies(it)
+                    searchMovies(it) // 검색어 제출 시 searchMovies 메서드를 호출하는 부분이다.
                 }
                 return true
             }
@@ -80,7 +80,7 @@ class SearchResultsActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_home -> {
                 val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity(intent) // 홈 버튼 클릭 시 MainActivity로 이동하는 부분이다.
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -94,9 +94,9 @@ class SearchResultsActivity : AppCompatActivity() {
                 response: Response<UpcomingMoviesResponse>
             ) {
                 if (response.isSuccessful) {
-                    val movies = response.body()?.results ?: emptyList()
+                    val movies = response.body()?.results ?: emptyList() // API 호출이 성공하면 영화 목록을 가져오는 부분이다.
                     if (movies.isNotEmpty()) {
-                        navigateToSearchResults(movies, query)
+                        navigateToSearchResults(movies, query) // 검색 결과가 있으면 navigateToSearchResults 메서드를 호출하는 부분이다.
                     } else {
                         Toast.makeText(this@SearchResultsActivity, "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
                     }

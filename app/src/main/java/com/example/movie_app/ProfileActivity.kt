@@ -24,10 +24,10 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        txtName = findViewById(R.id.name)
-        txtGender = findViewById(R.id.gender)
-        txtId = findViewById(R.id.id)
-        txtEmail = findViewById(R.id.email)  // 이메일 텍스트 뷰 초기화
+        txtName = findViewById(R.id.name) // 이름 텍스트 뷰 초기화
+        txtGender = findViewById(R.id.gender) // 성별 텍스트 뷰 초기화
+        txtId = findViewById(R.id.id) // ID 텍스트 뷰 초기화
+        txtEmail = findViewById(R.id.email) // 이메일 텍스트 뷰 초기화
 
         // SharedPreferences에서 사용자 정보 읽기
         val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
@@ -38,10 +38,10 @@ class ProfileActivity : AppCompatActivity() {
 
         Log.d("ProfileActivity", "UserId: $userId, UserName: $userName, UserGender: $userGender, UserEmail: $userEmail")
 
-        txtId.text = userId
-        txtName.text = userName
-        txtGender.text = userGender
-        txtEmail.text = userEmail  // 이메일 설정
+        txtId.text = userId // ID 설정
+        txtName.text = userName // 이름 설정
+        txtGender.text = userGender // 성별 설정
+        txtEmail.text = userEmail // 이메일 설정
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,7 +53,7 @@ class ProfileActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_home -> {
                 val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                startActivity(intent) // 홈으로 이동
                 true
             }
             else -> super.onOptionsItemSelected(item)

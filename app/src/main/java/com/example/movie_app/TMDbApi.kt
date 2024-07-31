@@ -11,7 +11,7 @@ interface TMDbApi {
         @Query("api_key") apiKey: String,
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Call<UpcomingMoviesResponse>
+    ): Call<UpcomingMoviesResponse> // 다가오는 영화를 가져오는 API 호출이다.
 
     @GET("movie/upcoming")
     fun getUpcomingMoviesByRegion(
@@ -19,7 +19,7 @@ interface TMDbApi {
         @Query("language") language: String,
         @Query("region") region: String,
         @Query("page") page: Int
-    ): Call<UpcomingMoviesResponse>
+    ): Call<UpcomingMoviesResponse> // 지역별 다가오는 영화를 가져오는 API 호출이다.
 
     @GET("search/movie")
     fun searchMovies(
@@ -27,14 +27,14 @@ interface TMDbApi {
         @Query("language") language: String,
         @Query("query") query: String,
         @Query("page") page: Int
-    ): Call<UpcomingMoviesResponse>
+    ): Call<UpcomingMoviesResponse> // 영화를 검색하는 API 호출이다.
 
     @GET("movie/{movie_id}")
     fun getMovieDetails(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String,
         @Query("language") language: String
-    ): Call<MovieDetailsResponse>
+    ): Call<MovieDetailsResponse> // 특정 영화의 세부 정보를 가져오는 API 호출이다.
 
     @GET("discover/movie")
     fun getMoviesByDateRange(
@@ -44,11 +44,11 @@ interface TMDbApi {
         @Query("primary_release_date.lte") endDate: String,
         @Query("region") region: String,
         @Query("page") page: Int
-    ): Call<UpcomingMoviesResponse>
+    ): Call<UpcomingMoviesResponse> // 특정 날짜 범위 내에서 영화를 가져오는 API 호출이다.
 }
 
 data class UpcomingMoviesResponse(
-    val results: List<Movie>
+    val results: List<Movie> // 영화 목록을 나타낸다.
 )
 
 data class Movie(
@@ -73,7 +73,7 @@ data class MovieDetailsResponse(
     val poster_path: String?,
     val overview: String,
     val runtime: Int,
-    val genres: List<Genre>
+    val genres: List<Genre> // 영화 장르 리스트이다.
 )
 
 data class Genre(

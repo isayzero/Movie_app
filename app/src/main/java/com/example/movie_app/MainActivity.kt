@@ -36,13 +36,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 뷰 초기화
         calendarView = findViewById(R.id.calendarView)
         recommendationSlider = findViewById(R.id.recommendationSlider)
 
+        // 리사이클러뷰 및 레트로핏 설정
         setupRecyclerView()
         setupRetrofit()
         fetchAllMovies()
 
+        // 달력 날짜 선택 리스너 설정
         calendarView.setOnDateChangedListener { _, date, _ ->
             val selectedDate = "${date.year}-${String.format("%02d", date.month)}-${String.format("%02d", date.day)}"
             fetchMoviesByDate(selectedDate)
@@ -51,12 +54,14 @@ class MainActivity : AppCompatActivity() {
         checkLoginStatus()
     }
 
+    // 리사이클러뷰 설정
     private fun setupRecyclerView() {
         recommendationAdapter = MovieAdapter(recommendedMovies, this)
         recommendationSlider.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recommendationSlider.adapter = recommendationAdapter
     }
 
+    // 레트로핏 설정
     private fun setupRetrofit() {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -66,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         tmdbApi = retrofit.create(TMDbApi::class.java)
     }
 
+    // 모든 영화 데이터 가져오기
     private fun fetchAllMovies() {
         val countries = listOf("KR", "US")
         countries.forEach { country ->
@@ -74,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 특정 국가의 개봉 예정 영화 가져오기
     private fun fetchUpcomingMoviesByCountry(country: String, page: Int) {
         tmdbApi.getUpcomingMoviesByRegion(API_KEY, "ko-KR", country, page).enqueue(object :
             Callback<UpcomingMoviesResponse> {
@@ -101,6 +108,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // 특정 국가의 이전 개봉 영화 가져오기
     private fun fetchPastMoviesByCountry(country: String, startDate: String, endDate: String, page: Int) {
         tmdbApi.getMoviesByDateRange(API_KEY, "ko-KR", startDate, endDate, country, page).enqueue(object :
             Callback<UpcomingMoviesResponse> {
@@ -128,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // 영화 리스트에 영화 추가
     private fun addMoviesToAllMovies(movies: List<Movie>) {
         movies.forEach { movie ->
             if (!allMovies.any { it.id == movie.id }) {
@@ -136,6 +145,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 특정 날짜에 개봉한 영화 가져오기
     private fun fetchMoviesByDate(date: String) {
         Log.d(TAG, "Fetching movies for date: $date")
         val moviesOnDate = allMovies.filter { it.release_date == date }
@@ -147,6 +157,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 달력에 영화 날짜 표시
     private fun updateCalendarWithMovies() {
         val validDates = allMovies.mapNotNull { movie ->
             val dateParts = movie.release_date.split("-")
@@ -165,6 +176,7 @@ class MainActivity : AppCompatActivity() {
         calendarView.addDecorator(EventDecorator(validDates, this))
     }
 
+    // 영화 세부 정보 화면으로 이동
     private fun navigateToCalDetail(movies: List<Movie>, releaseDate: String) {
         val intent = Intent(this, CalDetailActivity::class.java)
         val gson = Gson()
@@ -174,11 +186,13 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    // 액티비티 재개 시 추천 영화 랜덤으로 갱신
     override fun onResume() {
         super.onResume()
         randomizeRecommendedMovies()
     }
 
+    // 추천 영화 목록 랜덤화
     private fun randomizeRecommendedMovies() {
         recommendedMovies.clear()
         val randomMovies = allMovies.shuffled().take(10)
@@ -187,6 +201,7 @@ class MainActivity : AppCompatActivity() {
         recommendationAdapter.notifyDataSetChanged()
     }
 
+    // 메뉴 생성
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         val searchItem = menu?.findItem(R.id.action_search)
@@ -209,6 +224,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    // 메뉴 항목 선택
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_profile -> {
@@ -222,6 +238,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 영화 검색
     private fun searchMovies(query: String) {
         tmdbApi.searchMovies(API_KEY, "ko-KR", query, 1).enqueue(object : Callback<UpcomingMoviesResponse> {
             override fun onResponse(
@@ -246,6 +263,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // 로그인 상태 확인
     private fun checkLoginStatus() {
         val sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false)
@@ -256,6 +274,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 추천 영화 필터링
     private fun filterRecommendedMovies() {
         val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
         val userGenres = sharedPreferences.getString("userGenres", "") ?: ""
@@ -274,6 +293,7 @@ class MainActivity : AppCompatActivity() {
         recommendationAdapter.notifyDataSetChanged()
     }
 
+    // 장르 ID를 장르 이름으로 변환
     private fun getGenreNameById(genreId: Int): String {
         return when (genreId) {
             28 -> "액션"

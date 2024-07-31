@@ -75,6 +75,7 @@ class RegisterActivity : AppCompatActivity() {
 
         dbManager = DBManager(this, "personnel", null, 1)
 
+        // 회원가입 버튼 클릭 리스너 설정
         btnRegister.setOnClickListener {
             val name = edtName.text.toString()
             val id = edtId.text.toString()
@@ -86,6 +87,7 @@ class RegisterActivity : AppCompatActivity() {
                 else -> ""
             }
 
+            // 선택된 장르 수집
             val genres = mutableListOf<String>()
             if (chkAct.isChecked) genres.add("액션")
             if (chkCom.isChecked) genres.add("코미디")
@@ -107,11 +109,13 @@ class RegisterActivity : AppCompatActivity() {
 
             val genresString = genres.joinToString(", ")
 
+            // 비밀번호 길이 체크
             if (password.length < 6) {
                 Toast.makeText(this, "비밀번호는 6자리 이상으로 설정해 주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // 아이디 중복 체크
             sqlitedb = dbManager.readableDatabase
             val cursor = sqlitedb.rawQuery("SELECT * FROM personnel WHERE id = ?", arrayOf(id))
 
@@ -125,6 +129,7 @@ class RegisterActivity : AppCompatActivity() {
             cursor.close()
             sqlitedb.close()
 
+            // 데이터베이스에 사용자 정보 저장
             sqlitedb = dbManager.writableDatabase
             try {
                 sqlitedb.execSQL(
@@ -143,7 +148,7 @@ class RegisterActivity : AppCompatActivity() {
                 editor.putString("userGenres", genresString)
                 editor.apply()
 
-                // 메인 화면으로 이동
+                // 로그인 화면으로 이동
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
