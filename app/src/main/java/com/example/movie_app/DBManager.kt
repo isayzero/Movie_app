@@ -8,6 +8,7 @@ class DBManager(context: Context, name: String, factory: SQLiteDatabase.CursorFa
     SQLiteOpenHelper(context, name, factory, version) {
 
     override fun onCreate(db: SQLiteDatabase) {
+        // personnel 테이블을 생성하는 SQL 쿼리이다.
         db.execSQL(
             "CREATE TABLE personnel (" +
                     "name TEXT, " +
@@ -21,6 +22,7 @@ class DBManager(context: Context, name: String, factory: SQLiteDatabase.CursorFa
 
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        // 버전이 업그레이드되면 기존 테이블을 삭제하고 새로 생성한다.
         db.execSQL("DROP TABLE IF EXISTS personnel")
         onCreate(db)
     }
