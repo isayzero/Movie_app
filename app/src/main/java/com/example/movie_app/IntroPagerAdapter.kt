@@ -16,8 +16,8 @@ class IntroPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
                 R.drawable.calendar1
             ) // 첫 번째 페이지의 프래그먼트를 생성한다.
             1 -> IntroFragment.newInstance(
-                "최신 영화를 빠르게 검색하고 \n 즐겨찾기하세요!",
-                "최신 영화 정보를 빠르게 찾아보고, \n 나중에 볼 영화를 즐겨찾기 할 수 있습니다.",
+                "최신 영화를 빠르게 검색하세요!",
+                "최신 영화 정보를 빠르게\n 검색 및 확인할 수 있습니다.",
                 R.drawable.search
             ) // 두 번째 페이지의 프래그먼트를 생성한다.
             else -> IntroFragment.newInstance(
